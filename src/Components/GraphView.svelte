@@ -4,24 +4,40 @@
 
 	import { addData, removeData, updateValue } from './chartMethods.js';
 
-	let volume = '0';
+	let rangeValue = '0';
 	let djurValue = '';
 	let djurAntalValue = '';
 
-	const getArrOfRandomValues = (min = 0, max) => {
-		let arr = [];
-		for (let i = 0; i < max; i++) {
-			min = Math.ceil(min);
-			max = Math.floor(max);
-			arr.push(Math.floor(Math.random() * (max - min + 1) + min)); //The maximum is inclusive and the minimum is inclusive
-		}
-		return arr;
+	const getRandomValue = (min, max) => {
+		return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 	};
-	// let yValues = getArrOfRandomValues(100);
+
+	const getArrOfRandomValues = (max) => {
+		let min = 0;
+		let myScopedArr = [];
+		for (let i = 0; i < max; i++) {
+			let randomValue = getRandomValue(min, max);
+			myScopedArr.push(randomValue);
+		}
+		return myScopedArr;
+	};
+
+	const getArr100 = () => {
+		let myScopedArr = [];
+		for (let i = 0; i < 100; i++) {
+			myScopedArr.push(i);
+		}
+		return myScopedArr;
+	};
+	let xLabels = getArr100();
+	let yValues = getArrOfRandomValues(100);
 	// let xNewValues = new Set();
 
-	let xLabels = ['Hund', 'Katt', 'Vildsvin'];
-	let yValues = [4, 6, 8];
+	console.log('getArr100(): ', xLabels);
+	console.log('getArrOfRandomValues(100): ', yValues);
+
+	// let xLabels = ['Hund', 'Katt', 'Vildsvin'];
+	// let yValues = [4, 6, 8];
 
 	let ctx;
 	let myChart;
@@ -52,6 +68,7 @@
 
 	function handleChange() {
 		console.log('Range touched!');
+		updateValue(massPopChart, rangeValue, getRandomValue(0, 100));
 	}
 
 	function handleSubmit() {
@@ -73,14 +90,14 @@
 
 <main>
 	<p>See this cup?</p>
-	<p>Value: {volume}</p>
+	<p>Value: {rangeValue}</p>
 
 	<input
 		on:input={handleChange}
 		type="range"
 		id="volume"
 		name="volume"
-		bind:value={volume}
+		bind:value={rangeValue}
 		min="0"
 		max="100"
 	/>
@@ -103,6 +120,7 @@
 
 <style>
 	form {
+		display: none;
 		border: 1px dotted black;
 	}
 	.canvas-wrapper {
