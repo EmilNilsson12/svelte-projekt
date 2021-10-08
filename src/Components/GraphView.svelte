@@ -2,7 +2,11 @@
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
 
+	import { addData, removeData, updateValue } from './chartMethods.js';
+
 	let volume = '0';
+	let djurValue = '';
+	let djurAntalValue = '';
 
 	const getArrOfRandomValues = (min = 0, max) => {
 		let arr = [];
@@ -16,24 +20,33 @@
 	// let yValues = getArrOfRandomValues(100);
 	// let xNewValues = new Set();
 
+	let xLabels = ['Hund', 'Katt', 'Vildsvin'];
+	let yValues = [4, 6, 8];
+
 	let ctx;
 	let myChart;
+	let massPopChart;
 	onMount(() => {
 		myChart = document.getElementById('myChart').getContext('2d');
-		console.log('myChart: ', myChart);
 
-		let massPopChart = new Chart(myChart, {
-			type: 'bar',
+		massPopChart = new Chart(myChart, {
+			type: 'line',
 			data: {
-				labels: ['Hundar', 'Katter', 'Vildsvin'],
+				labels: xLabels,
 				datasets: [
 					{
 						label: 'Population',
-						data: [4, 6, 8],
+						data: yValues,
 					},
 				],
 			},
-			options: {},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true,
+					},
+				},
+			},
 		});
 	});
 
@@ -43,6 +56,18 @@
 
 	function handleSubmit() {
 		console.log('Submitted!');
+		console.log('Djur: ', djurValue);
+		console.log('Djur antal: ', djurAntalValue);
+
+		let labelExists = massPopChart.data.labels.find(
+			(label) => label === djurValue
+		);
+
+		if (labelExists) {
+			updateValue(massPopChart, djurValue, parseInt(djurAntalValue, 10));
+		} else {
+			addData(massPopChart, djurValue, parseInt(djurAntalValue, 10));
+		}
 	}
 </script>
 
@@ -62,11 +87,11 @@
 	<form on:submit|preventDefault={handleSubmit}>
 		<p>
 			<label for="djur">Djur</label>
-			<input type="text" id="djur" required />
+			<input type="text" id="djur" bind:value={djurValue} required />
 		</p>
 		<p>
 			<label for="antal">Antal</label>
-			<input type="number" id="antal" required />
+			<input type="number" id="antal" bind:value={djurAntalValue} required />
 		</p>
 		<button type="submit">Submit</button>
 	</form>
