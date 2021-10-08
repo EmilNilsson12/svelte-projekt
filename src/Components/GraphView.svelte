@@ -10,9 +10,9 @@
 		getArr100,
 	} from './getArrays.js';
 
-	let rangeValueHeight = '0';
-	let rangeValueDia = '0';
-	let rangeValueThickness = '0';
+	let rangeValueHeight = '70';
+	let rangeValueDia = '50';
+	let rangeValueThickness = '10';
 
 	let djurValue = '';
 	let djurAntalValue = '';
@@ -86,8 +86,7 @@
 <main>
 	<p>See this cup?</p>
 	<p>
-		Height: {rangeValueHeight}
-
+		Inside height: {rangeValueHeight}px
 		<input
 			on:input={handleChange('height')}
 			on:change={handleChange('height')}
@@ -96,11 +95,11 @@
 			name="volume"
 			bind:value={rangeValueHeight}
 			min="0"
-			max="100"
+			max="170"
 		/>
 	</p>
 	<p>
-		Inside Diameter: {rangeValueDia}
+		Inside Diameter: {rangeValueDia}px
 		<input
 			on:input={handleChange('diameter')}
 			on:change={handleChange('diameter')}
@@ -109,12 +108,11 @@
 			name="volume"
 			bind:value={rangeValueDia}
 			min="0"
-			max="100"
+			max="140"
 		/>
 	</p>
 	<p>
-		Wall thickness: {rangeValueThickness}
-
+		Wall thickness: {rangeValueThickness}px
 		<input
 			on:input={handleChange('thickness')}
 			on:change={handleChange('thickness')}
@@ -122,14 +120,20 @@
 			id="volume"
 			name="volume"
 			bind:value={rangeValueThickness}
-			min="0"
-			max="100"
+			min="1"
+			max="30"
 		/>
 	</p>
 
 	<div class="cup-views-container">
 		<div class="cup-view">
-			<div class="cup-above cup">cup-above</div>
+			<div
+				class="cup-above cup"
+				style={`
+				height: ${rangeValueDia}px;
+				width: ${rangeValueDia}px;
+				border-width: ${rangeValueThickness}px;`}
+			/>
 		</div>
 		<div class="cup-view">
 			<div
@@ -172,25 +176,14 @@
 	canvas {
 		display: block;
 	}
-
 	.cup {
 		border: 1px solid black;
 		position: absolute;
-
-		border-image-slice: 1;
-		border-style: solid;
-		border-image-source: linear-gradient(
-			115deg,
-			rgba(103, 103, 103, 1) 0%,
-			rgba(0, 255, 128, 1) 50%,
-			rgba(57, 39, 39, 1) 100%
-		);
 	}
 	.cup-front {
 		bottom: 0;
 		left: 50%;
 		transform: translateX(-50%);
-		background: rgb(103, 103, 103);
 		background: linear-gradient(
 			90deg,
 			rgba(103, 103, 103, 1) 0%,
@@ -202,6 +195,12 @@
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
+		background: radial-gradient(
+			rgba(103, 103, 103, 1) 0%,
+			rgba(0, 255, 128, 1) 25%,
+			rgba(57, 39, 39, 1) 100%
+		);
+		border-radius: 999px;
 	}
 	.cup-view {
 		height: 200px;
