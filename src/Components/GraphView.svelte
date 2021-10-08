@@ -20,7 +20,6 @@
 	let xLabels = getArr100();
 	let yValues = getArrofZeros(100);
 
-	let ctx;
 	let myChart;
 	let massPopChart;
 	onMount(() => {
