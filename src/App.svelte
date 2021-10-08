@@ -1,12 +1,10 @@
 <script>
 	import CupView from './components/CupView.svelte';
 	import GraphView from './components/GraphView.svelte';
-
-
 </script>
 
 <main>
-	<h1>App.svelte!</h1>
+	<!-- <h1>App.svelte!</h1> -->
 	<CupView />
 	<GraphView />
 </main>

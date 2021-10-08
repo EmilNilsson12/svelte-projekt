@@ -1,43 +1,24 @@
 <script>
-	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
+	import { onMount } from 'svelte';
 
 	import { addData, removeData, updateValue } from './chartMethods.js';
+	import {
+		getRandomValue,
+		getArrofZeros,
+		getArrOfRandomValues,
+		getArr100,
+	} from './getArrays.js';
 
-	let rangeValue = '0';
+	let rangeValueHeight = '0';
+	let rangeValueDia = '0';
+	let rangeValueThickness = '0';
+
 	let djurValue = '';
 	let djurAntalValue = '';
 
-	const getRandomValue = (min, max) => {
-		return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-	};
-
-	const getArrOfRandomValues = (max) => {
-		let min = 0;
-		let myScopedArr = [];
-		for (let i = 0; i < max; i++) {
-			let randomValue = getRandomValue(min, max);
-			myScopedArr.push(randomValue);
-		}
-		return myScopedArr;
-	};
-
-	const getArr100 = () => {
-		let myScopedArr = [];
-		for (let i = 0; i < 100; i++) {
-			myScopedArr.push(i);
-		}
-		return myScopedArr;
-	};
 	let xLabels = getArr100();
-	let yValues = getArrOfRandomValues(100);
-	// let xNewValues = new Set();
-
-	console.log('getArr100(): ', xLabels);
-	console.log('getArrOfRandomValues(100): ', yValues);
-
-	// let xLabels = ['Hund', 'Katt', 'Vildsvin'];
-	// let yValues = [4, 6, 8];
+	let yValues = getArrofZeros(100);
 
 	let ctx;
 	let myChart;
@@ -57,25 +38,39 @@
 				],
 			},
 			options: {
+				responsive: true,
 				scales: {
 					y: {
 						beginAtZero: true,
+
+						suggestedMax: 10,
 					},
 				},
 			},
 		});
 	});
 
-	function handleChange() {
+	function handleChange(paramString) {
 		console.log('Range touched!');
-		updateValue(massPopChart, rangeValue, getRandomValue(0, 100));
+		switch (paramString) {
+			case 'height':
+				console.log('Height: ', rangeValueHeight);
+				break;
+
+			case 'diameter':
+				console.log('Diameter: ', rangeValueDia);
+				break;
+
+			case 'thickness':
+				console.log('Thickness: ', rangeValueThickness);
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	function handleSubmit() {
-		console.log('Submitted!');
-		console.log('Djur: ', djurValue);
-		console.log('Djur antal: ', djurAntalValue);
-
 		let labelExists = massPopChart.data.labels.find(
 			(label) => label === djurValue
 		);
@@ -90,17 +85,59 @@
 
 <main>
 	<p>See this cup?</p>
-	<p>Value: {rangeValue}</p>
+	<p>
+		Height: {rangeValueHeight}
 
-	<input
-		on:input={handleChange}
-		type="range"
-		id="volume"
-		name="volume"
-		bind:value={rangeValue}
-		min="0"
-		max="100"
-	/>
+		<input
+			on:input={handleChange('height')}
+			on:change={handleChange('height')}
+			type="range"
+			id="volume"
+			name="volume"
+			bind:value={rangeValueHeight}
+			min="0"
+			max="100"
+		/>
+	</p>
+	<p>
+		Inside Diameter: {rangeValueDia}
+		<input
+			on:input={handleChange('diameter')}
+			on:change={handleChange('diameter')}
+			type="range"
+			id="volume"
+			name="volume"
+			bind:value={rangeValueDia}
+			min="0"
+			max="100"
+		/>
+	</p>
+	<p>
+		Wall thickness: {rangeValueThickness}
+
+		<input
+			on:input={handleChange('thickness')}
+			on:change={handleChange('thickness')}
+			type="range"
+			id="volume"
+			name="volume"
+			bind:value={rangeValueThickness}
+			min="0"
+			max="100"
+		/>
+	</p>
+
+	<div class="cup-views-container">
+		<div class="cup-from-above cup-view">
+			<div class="cup-above cup">cup-above</div>
+		</div>
+		<div class="cup-from-front cup-view">
+			<div class="cup-front cup" style={`height: ${rangeValueHeight}`}>
+				cup-front
+			</div>
+		</div>
+	</div>
+
 	<form on:submit|preventDefault={handleSubmit}>
 		<p>
 			<label for="djur">Djur</label>
@@ -113,7 +150,7 @@
 		<button type="submit">Submit</button>
 	</form>
 	<p>See this graph?</p>
-	<div class="canvas-wrapper">
+	<div class="chart-wrapper">
 		<canvas id="myChart" />
 	</div>
 </main>
@@ -123,12 +160,31 @@
 		display: none;
 		border: 1px dotted black;
 	}
-	.canvas-wrapper {
-		width: 90%;
-		/* height: 100px; */
+	.chart-wrapper {
+		height: 400px;
 	}
-
 	canvas {
 		display: block;
+	}
+
+	.cup {
+		border: 1px solid black;
+		position: absolute;
+	}
+	.cup-front {
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.cup-above {
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+	.cup-view {
+		height: 200px;
+		width: 200px;
+		border: 1px solid black;
+		position: relative;
 	}
 </style>
