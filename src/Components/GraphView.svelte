@@ -128,13 +128,19 @@
 	</p>
 
 	<div class="cup-views-container">
-		<div class="cup-from-above cup-view">
+		<div class="cup-view">
 			<div class="cup-above cup">cup-above</div>
 		</div>
-		<div class="cup-from-front cup-view">
-			<div class="cup-front cup" style={`height: ${rangeValueHeight}`}>
-				cup-front
-			</div>
+		<div class="cup-view">
+			<div
+				class="cup-front cup"
+				style={`
+				height: ${rangeValueHeight}px;
+				width: ${rangeValueDia}px;
+				border-left-width: ${rangeValueThickness}px;
+				border-bottom-width: ${rangeValueThickness}px;
+				border-right-width: ${rangeValueThickness}px;`}
+			/>
 		</div>
 	</div>
 
@@ -170,11 +176,27 @@
 	.cup {
 		border: 1px solid black;
 		position: absolute;
+
+		border-image-slice: 1;
+		border-style: solid;
+		border-image-source: linear-gradient(
+			115deg,
+			rgba(103, 103, 103, 1) 0%,
+			rgba(0, 255, 128, 1) 50%,
+			rgba(57, 39, 39, 1) 100%
+		);
 	}
 	.cup-front {
 		bottom: 0;
 		left: 50%;
 		transform: translateX(-50%);
+		background: rgb(103, 103, 103);
+		background: linear-gradient(
+			90deg,
+			rgba(103, 103, 103, 1) 0%,
+			rgba(0, 255, 128, 1) 50%,
+			rgba(57, 39, 39, 1) 100%
+		);
 	}
 	.cup-above {
 		left: 50%;
