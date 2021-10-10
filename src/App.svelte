@@ -5,6 +5,7 @@
 
 <main>
 	<h1>App.svelte!</h1>
+	<h2>svelte made easy</h2>
 	<CupView />
 	<GraphView />
 </main>
