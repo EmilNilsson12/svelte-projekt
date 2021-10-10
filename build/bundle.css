@@ -1,0 +1,10 @@
+main.svelte-1h6otfa{text-align:center;padding:1em;max-width:240px;margin:0 auto}@media(min-width: 640px){main.svelte-1h6otfa{max-width:none}}.grid-container.svelte-c5jzog{display:grid;grid-template-columns:1fr 3fr}form.svelte-c5jzog{display:none;border:1px dotted black}.chart-wrapper.svelte-c5jzog{height:400px}canvas.svelte-c5jzog{display:block}.cup.svelte-8e0265{border:1px solid black;position:absolute}.cup-front.svelte-8e0265{bottom:0;left:50%;transform:translateX(-50%);background:linear-gradient(
+			90deg,
+			rgba(103, 103, 103, 1) 0%,
+			rgba(0, 255, 128, 1) 50%,
+			rgba(57, 39, 39, 1) 100%
+		)}.cup-above.svelte-8e0265{left:50%;top:50%;transform:translate(-50%, -50%);background:radial-gradient(
+			rgba(103, 103, 103, 1) 0%,
+			rgba(0, 255, 128, 1) 25%,
+			rgba(57, 39, 39, 1) 100%
+		);border-radius:999px}.cup-view.svelte-8e0265{height:200px;width:200px;border:1px solid black;position:relative}
