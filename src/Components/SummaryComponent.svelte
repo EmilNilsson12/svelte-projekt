@@ -26,4 +26,11 @@
 </section>
 
 <style>
+	section {
+		text-align: left;
+		margin: 0 5px;
+	}
+	details {
+		border: 1px dotted black;
+	}
 </style>

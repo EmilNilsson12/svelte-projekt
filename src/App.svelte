@@ -1,13 +1,13 @@
 <script>
 	import CupView from './components/CupView.svelte';
-	import GraphView from './components/GraphView.svelte';
+	import CupVisualizer from './components/CupVisualizer.svelte';
 </script>
 
 <main>
 	<h1>App.svelte!</h1>
 	<h2>svelte made easy</h2>
 	<CupView />
-	<GraphView />
+	<CupVisualizer />
 </main>
 
 <style>
