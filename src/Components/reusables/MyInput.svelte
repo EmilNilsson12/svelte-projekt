@@ -6,8 +6,9 @@
 	export let minProp = '';
 	export let maxProp = '';
 
-	function callCallback() {
-		if (valueProp < 1) valueProp = 1;
+	function callCallback(min, max) {
+		if (valueProp < min) valueProp = min;
+		if (valueProp > max) valueProp = max;
 		callback(callbackParam, valueProp);
 	}
 </script>
@@ -17,18 +18,18 @@
 	<input
 		type="number"
 		bind:value={valueProp}
-		on:change={callCallback}
 		min={minProp}
 		max={maxProp}
-		on:input={callCallback}
+		on:change={callCallback(minProp, maxProp)}
+		on:input={callCallback(minProp, maxProp)}
 	/>px
 	<input
 		type="range"
 		min={minProp}
 		max={maxProp}
 		bind:value={valueProp}
-		on:change={callCallback}
-		on:input={callCallback}
+		on:change={callCallback(minProp, maxProp)}
+		on:input={callCallback(minProp, maxProp)}
 	/>
 </p>
 
