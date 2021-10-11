@@ -4,30 +4,28 @@
 	export let rangeValueThickness = '';
 </script>
 
-<section>
-	<div class="cup-views-container">
-		<div class="cup-view">
-			<div
-				class="cup-above cup"
-				style={`
+<div class="cup-views-container">
+	<div class="cup-view">
+		<div
+			class="cup-above cup"
+			style={`
 				height: ${rangeValueDia}px;
 				width: ${rangeValueDia}px;
 				border-width: ${rangeValueThickness}px;`}
-			/>
-		</div>
-		<div class="cup-view">
-			<div
-				class="cup-front cup"
-				style={`
+		/>
+	</div>
+	<div class="cup-view">
+		<div
+			class="cup-front cup"
+			style={`
 				height: ${rangeValueHeight}px;
 				width: ${rangeValueDia}px;
 				border-left-width: ${rangeValueThickness}px;
 				border-bottom-width: ${rangeValueThickness}px;
 				border-right-width: ${rangeValueThickness}px;`}
-			/>
-		</div>
+		/>
 	</div>
-</section>
+</div>
 
 <style>
 	.cup {
