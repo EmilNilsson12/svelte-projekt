@@ -9,6 +9,8 @@
 	let totalHeight = 0;
 	let areaOfFloor = 0;
 	let maxInsideVolume = 0;
+	let volumeIfMassive = 0;
+	let volumeOfCup = 0;
 
 	$: {
 		// Convert props to numbers
@@ -20,8 +22,11 @@
 		outerDiameter = rangeValueDia + rangeValueThickness * 2;
 		totalHeight = rangeValueHeight + rangeValueThickness;
 
-		areaOfFloor = (Math.pow(rangeValueDia / 2, 2) * Math.PI).toFixed(2);
-		maxInsideVolume = (rangeValueHeight * areaOfFloor).toFixed(2);
+		areaOfFloor = Math.pow(rangeValueDia / 2, 2) * Math.PI;
+		maxInsideVolume = rangeValueHeight * areaOfFloor;
+
+		volumeIfMassive = Math.pow(outerDiameter / 2, 2) * Math.PI * totalHeight;
+		volumeOfCup = volumeIfMassive - maxInsideVolume;
 	}
 </script>
 
@@ -41,9 +46,15 @@
 	</details>
 
 	<details>
-		<summary>Max inner volume: {maxInsideVolume}px^3</summary>
-		<p>{rangeValueHeight} * {areaOfFloor}</p>
+		<summary>Max inner volume: <br />{maxInsideVolume.toFixed(2)}px^3</summary>
+		<p>{rangeValueHeight} * {areaOfFloor.toFixed(2)}</p>
 		<p>Inner height + cross-sec-area</p>
+	</details>
+
+	<details>
+		<summary>Volume of can: <br />{volumeOfCup.toFixed(2)}px^3</summary>
+		<!-- <p>{rangeValueHeight} * {areaOfFloor}</p> -->
+		<p>Hypothetical massive volme - inside volume</p>
 	</details>
 </section>
 

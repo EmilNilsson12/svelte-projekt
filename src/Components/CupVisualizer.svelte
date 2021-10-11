@@ -4,6 +4,8 @@
 	import Chart from 'chart.js/auto';
 
 	import CupViewsComponent from './CupViewsComponent.svelte';
+	import MyInput from './reusables/MyInput.svelte';
+
 	import SummaryComponent from './SummaryComponent.svelte';
 
 	import { addData, removeData, updateValue } from '../utils/chartMethods.js';
@@ -18,72 +20,31 @@
 	let rangeValueDia = '50';
 	let rangeValueThickness = '10';
 
-	// let djurValue = '';
-	// let djurAntalValue = '';
-
-	// let xLabels = getArr100();
-	// let yValues = getArrofZeros(100);
-
-	// let myChart;
-	// let massPopChart;
-	// onMount(() => {
-	// 	myChart = document.getElementById('myChart').getContext('2d');
-
-	// 	massPopChart = new Chart(myChart, {
-	// 		type: 'line',
-	// 		data: {
-	// 			labels: xLabels,
-	// 			datasets: [
-	// 				{
-	// 					label: 'Population',
-	// 					data: yValues,
-	// 				},
-	// 			],
-	// 		},
-	// 		options: {
-	// 			responsive: true,
-	// 			scales: {
-	// 				y: {
-	// 					beginAtZero: true,
-
-	// 					suggestedMax: 10,
-	// 				},
-	// 			},
-	// 		},
-	// 	});
-	// });
-
-	function handleChange(paramString) {
+	function handleChange(paramString, newValue) {
+		console.log('---Before value---');
 		console.log('Range touched!');
+		console.log('Inside CupVisualizer called back');
 		switch (paramString) {
 			case 'height':
-				console.log('Height: ', rangeValueHeight);
+				console.log('Height: ', newValue);
+				rangeValueHeight = newValue;
 				break;
 
 			case 'diameter':
-				console.log('Diameter: ', rangeValueDia);
+				console.log('Diameter: ', newValue);
+				rangeValueDia = newValue;
 				break;
 
 			case 'thickness':
-				console.log('Thickness: ', rangeValueThickness);
+				console.log('Thickness: ', newValue);
+				rangeValueThickness = newValue;
 				break;
 
 			default:
 				break;
 		}
+		console.log('---After value---');
 	}
-
-	// function handleSubmit() {
-	// 	let labelExists = massPopChart.data.labels.find(
-	// 		(label) => label === djurValue
-	// 	);
-
-	// 	if (labelExists) {
-	// 		updateValue(massPopChart, djurValue, parseInt(djurAntalValue, 10));
-	// 	} else {
-	// 		addData(massPopChart, djurValue, parseInt(djurAntalValue, 10));
-	// 	}
-	// }
 </script>
 
 <main>
@@ -98,45 +59,30 @@
 			/>
 		</div>
 		<div class="range-inputs">
-			<p>
-				Inside height: {rangeValueHeight}px
-				<input
-					on:input={handleChange('height')}
-					on:change={handleChange('height')}
-					type="range"
-					id="volume"
-					name="volume"
-					bind:value={rangeValueHeight}
-					min="0"
-					max="170"
-				/>
-			</p>
-			<p>
-				Inside Diameter: {rangeValueDia}px
-				<input
-					on:input={handleChange('diameter')}
-					on:change={handleChange('diameter')}
-					type="range"
-					id="volume"
-					name="volume"
-					bind:value={rangeValueDia}
-					min="0"
-					max="140"
-				/>
-			</p>
-			<p>
-				Wall thickness: {rangeValueThickness}px
-				<input
-					on:input={handleChange('thickness')}
-					on:change={handleChange('thickness')}
-					type="range"
-					id="volume"
-					name="volume"
-					bind:value={rangeValueThickness}
-					min="1"
-					max="30"
-				/>
-			</p>
+			<MyInput
+				descProp="Inside height"
+				valueProp={rangeValueHeight}
+				callback={handleChange}
+				callbackParam="height"
+				minProp="1"
+				maxProp="170"
+			/>
+			<MyInput
+				descProp="Inside Diameter"
+				valueProp={rangeValueDia}
+				callback={handleChange}
+				callbackParam="diameter"
+				minProp="1"
+				maxProp="140"
+			/>
+			<MyInput
+				descProp="Wall thickness"
+				valueProp={rangeValueThickness}
+				callback={handleChange}
+				callbackParam="thickness"
+				minProp="1"
+				maxProp="30"
+			/>
 		</div>
 		<div class="summaries">
 			<SummaryComponent
